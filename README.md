@@ -84,11 +84,11 @@ The Counting Steps Widget is an app designed to help you track your steps throug
 
 Digital WireFrame
 
-<img src="https://github.com/user-attachments/assets/facac637-9946-4bdd-ba68-68e16ffa80f4" alt="Screenshot" width="400" height="300" />
+<img src="https://github.com/user-attachments/assets/facac637-9946-4bdd-ba68-68e16ffa80f4" alt="Screenshot" width="600" height="600" />
 
 Visual Prototype 
 
-<img src="https://github.com/user-attachments/assets/903228bf-c34a-4f56-a323-96558d9ae2b5" alt="Visual Prototype" width="400" height="300"/>
+<img src="https://github.com/user-attachments/assets/903228bf-c34a-4f56-a323-96558d9ae2b5" alt="Visual Prototype" width="400" height="600"/>
 
 
 
