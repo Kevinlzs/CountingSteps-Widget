@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0BE742E2DAF274C002B89DF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */; };
+		C0BE74302DAF274C002B89DF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE742F2DAF274C002B89DF /* FirebaseAuth */; };
+		C0BE74322DAF274C002B89DF /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74312DAF274C002B89DF /* FirebaseCore */; };
+		C0BE74342DAF274C002B89DF /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74332DAF274C002B89DF /* FirebaseDatabase */; };
+		C0BE74362DAF274C002B89DF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74352DAF274C002B89DF /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CountingSteps-Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +31,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0BE742E2DAF274C002B89DF /* FirebaseAnalytics in Frameworks */,
+				C0BE74322DAF274C002B89DF /* FirebaseCore in Frameworks */,
+				C0BE74342DAF274C002B89DF /* FirebaseDatabase in Frameworks */,
+				C0BE74362DAF274C002B89DF /* FirebaseFirestore in Frameworks */,
+				C0BE74302DAF274C002B89DF /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,11 @@
 			);
 			name = "CountingSteps-Widget";
 			packageProductDependencies = (
+				C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */,
+				C0BE742F2DAF274C002B89DF /* FirebaseAuth */,
+				C0BE74312DAF274C002B89DF /* FirebaseCore */,
+				C0BE74332DAF274C002B89DF /* FirebaseDatabase */,
+				C0BE74352DAF274C002B89DF /* FirebaseFirestore */,
 			);
 			productName = "CountingSteps-Widget";
 			productReference = C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */;
@@ -94,6 +112,9 @@
 			);
 			mainGroup = C0BE73F92DAF038D002B89DF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C0BE74032DAF038D002B89DF /* Products */;
 			projectDirPath = "";
@@ -322,6 +343,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C0BE742F2DAF274C002B89DF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C0BE74312DAF274C002B89DF /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		C0BE74332DAF274C002B89DF /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		C0BE74352DAF274C002B89DF /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0BE73FA2DAF038D002B89DF /* Project object */;
 }
