@@ -17,7 +17,7 @@ struct CountingSteps_WidgetApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HealthOverviewView()
         }
     }
 }
