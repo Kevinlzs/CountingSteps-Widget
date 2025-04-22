@@ -9,10 +9,21 @@ import SwiftUI
 
 struct HealthOverviewView: View {
     @StateObject var health = HealthKitManager()
+    @State private var selectedRange = "Day"
+    
+    private let ranges = ["Day", "Week", "Month"]
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("🚶 Steps Today")
+            Picker("Select Range", selection: $selectedRange) {
+                ForEach(ranges, id: \.self) { range in
+                    Text(range)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
+
+            Text("🚶 Steps (\(selectedRange))")
                 .font(.headline)
 
             Text("\(Int(health.steps)) / \(health.stepGoal)")
@@ -25,6 +36,9 @@ struct HealthOverviewView: View {
         .onAppear {
             health.requestAuthorization()
         }
+        .onChange(of: selectedRange) { newRange in
+            health.fetchAndUploadData(for: newRange)
+        }
         .padding()
     }
 }
@@ -32,3 +46,4 @@ struct HealthOverviewView: View {
 #Preview {
     HealthOverviewView()
 }
+
