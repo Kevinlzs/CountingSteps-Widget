@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct CountingSteps_WidgetApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+    
+    init() { // <-- Add an init
+        FirebaseApp.configure() // <-- Configure Firebase app
     }
+
+    var body: some Scene {
+            WindowGroup {
+                TabView {
+                    StepCounterView()
+                        .tabItem {
+                            Image(systemName: "figure.walk")
+                            Text("Steps")
+                        }
+                }
+            }
+        }
 }
