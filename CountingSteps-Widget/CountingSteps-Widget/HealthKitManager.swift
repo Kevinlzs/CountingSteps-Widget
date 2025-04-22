@@ -17,7 +17,7 @@ class HealthKitManager: ObservableObject {
     @Published var distance: Double = 0
     @Published var calories: Double = 0
     @Published var stepGoal: Int = 10000 // Default fallback
-
+    
     func requestAuthorization() {
         let typesToRead: Set = [
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
@@ -27,7 +27,8 @@ class HealthKitManager: ObservableObject {
 
         healthStore.requestAuthorization(toShare: [], read: typesToRead) { success, error in
             if success {
-                self.fetchHealthData()
+                let (start, end) = self.getDateRange(for: "Day")
+                self.fetchHealthData(from: start, to: end)
                 self.fetchStepGoal()
             } else {
                 print("HealthKit Auth failed: \(error?.localizedDescription ?? "Unknown error")")
@@ -84,33 +85,87 @@ class HealthKitManager: ObservableObject {
         }
     }
 
-    func fetchHealthData() {
-        let now = Date()
-        let startOfDay = Calendar.current.startOfDay(for: now)
-
+    func fetchHealthData(from startDate: Date, to endDate: Date) {
         let group = DispatchGroup()
 
         group.enter()
-        fetchQuantity(.stepCount, from: startOfDay, to: now) { value in
+        fetchQuantity(.stepCount, from: startDate, to: endDate) { value in
             self.steps = value
             group.leave()
         }
 
         group.enter()
-        fetchQuantity(.distanceWalkingRunning, from: startOfDay, to: now) { value in
+        fetchQuantity(.distanceWalkingRunning, from: startDate, to: endDate) { value in
             self.distance = value
             group.leave()
         }
 
         group.enter()
-        fetchQuantity(.activeEnergyBurned, from: startOfDay, to: now) { value in
+        fetchQuantity(.activeEnergyBurned, from: startDate, to: endDate) { value in
             self.calories = value
             group.leave()
         }
-        
+
         group.notify(queue: .main) {
-            self.uploadDailyHealthData()
+            self.uploadHealthData(for: startDate)
         }
+    }
+    
+    func uploadHealthData(for date: Date) {
+        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateKey = dateFormatter.string(from: date)
+
+        let displayDateFormatter = DateFormatter()
+        displayDateFormatter.dateFormat = "M/dd/yy"
+
+        let data: [String: Any] = [
+            "uid": userId,
+            "date": displayDateFormatter.string(from: date),
+            "stepCount": Int(steps),
+            "distance": distance,
+            "caloriesBurnt": calories,
+            "lastUpdated": Timestamp(date: Date())
+        ]
+
+        db.collection("stepRecords")
+            .document("\(userId)_\(dateKey)")
+            .setData(data) { error in
+                if let error = error {
+                    print("Error uploading step record: \(error.localizedDescription)")
+                } else {
+                    print("Successfully uploaded step record for \(dateKey)")
+                }
+            }
+    }
+    
+    func getDateRange(for selection: String) -> (Date, Date) {
+        let calendar = Calendar.current
+        let now = Date()
+
+        switch selection {
+        case "Day":
+            let start = calendar.startOfDay(for: now)
+            return (start, now)
+
+        case "Week":
+            let start = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now))!
+            return (start, now)
+
+        case "Month":
+            let start = calendar.date(from: calendar.dateComponents([.year, .month], from: now))!
+            return (start, now)
+
+        default:
+            let start = calendar.startOfDay(for: now)
+            return (start, now)
+        }
+    }
+    
+    func fetchAndUploadData(for range: String) {
+        let (start, end) = getDateRange(for: range)
+        fetchHealthData(from: start, to: end)
     }
 
     private func fetchQuantity(_ id: HKQuantityTypeIdentifier, from: Date, to: Date, completion: @escaping (Double) -> Void) {

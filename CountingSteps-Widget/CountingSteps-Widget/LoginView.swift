@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var showSignUp = false
     @State private var error = ""
     @State private var isLoading = false
+    @State private var isLoggedIn = false
     
     var body: some View {
         ZStack {
@@ -106,7 +107,11 @@ struct LoginView: View {
                         isLoading = true
                         Auth.auth().signIn(withEmail: email, password: password) { _, err in
                             isLoading = false
-                            error = err?.localizedDescription ?? ""
+                            if let err = err {
+                                error = err.localizedDescription
+                            } else {
+                                isLoggedIn = true
+                            }
                         }
                     } label: {
                         HStack {
@@ -144,6 +149,9 @@ struct LoginView: View {
         }
         .sheet(isPresented: $showSignUp) {
             SignUpView()
+        }
+        .fullScreenCover(isPresented: $isLoggedIn) {
+            HealthOverviewView()
         }
     }
 }
