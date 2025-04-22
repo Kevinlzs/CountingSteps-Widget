@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0BE742E2DAF274C002B89DF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */; };
+		C0BE74302DAF274C002B89DF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE742F2DAF274C002B89DF /* FirebaseAuth */; };
+		C0BE74322DAF274C002B89DF /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74312DAF274C002B89DF /* FirebaseCore */; };
+		C0BE74342DAF274C002B89DF /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74332DAF274C002B89DF /* FirebaseDatabase */; };
+		C0BE74362DAF274C002B89DF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74352DAF274C002B89DF /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CountingSteps-Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +31,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0BE742E2DAF274C002B89DF /* FirebaseAnalytics in Frameworks */,
+				C0BE74322DAF274C002B89DF /* FirebaseCore in Frameworks */,
+				C0BE74342DAF274C002B89DF /* FirebaseDatabase in Frameworks */,
+				C0BE74362DAF274C002B89DF /* FirebaseFirestore in Frameworks */,
+				C0BE74302DAF274C002B89DF /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,11 @@
 			);
 			name = "CountingSteps-Widget";
 			packageProductDependencies = (
+				C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */,
+				C0BE742F2DAF274C002B89DF /* FirebaseAuth */,
+				C0BE74312DAF274C002B89DF /* FirebaseCore */,
+				C0BE74332DAF274C002B89DF /* FirebaseDatabase */,
+				C0BE74352DAF274C002B89DF /* FirebaseFirestore */,
 			);
 			productName = "CountingSteps-Widget";
 			productReference = C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */;
@@ -94,6 +112,9 @@
 			);
 			mainGroup = C0BE73F92DAF038D002B89DF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C0BE74032DAF038D002B89DF /* Products */;
 			projectDirPath = "";
@@ -253,10 +274,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CountingSteps-Widget/Preview Content\"";
-				DEVELOPMENT_TEAM = H97Q6FDLWY;
+				DEVELOPMENT_TEAM = 4UTX7CL4U5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to acess the health app for your data ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses your health data to show your daily steps, distance, and calories burned.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -267,7 +288,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "KevinLopez.CountingSteps-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -284,10 +305,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CountingSteps-Widget/Preview Content\"";
-				DEVELOPMENT_TEAM = H97Q6FDLWY;
+				DEVELOPMENT_TEAM = 4UTX7CL4U5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to acess the health app for your data ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses your health data to show your daily steps, distance, and calories burned.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -298,7 +319,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "KevinLopez.CountingSteps-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -328,6 +349,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0BE742D2DAF274C002B89DF /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C0BE742F2DAF274C002B89DF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C0BE74312DAF274C002B89DF /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		C0BE74332DAF274C002B89DF /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		C0BE74352DAF274C002B89DF /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0BE742C2DAF274C002B89DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C0BE73FA2DAF038D002B89DF /* Project object */;
 }
