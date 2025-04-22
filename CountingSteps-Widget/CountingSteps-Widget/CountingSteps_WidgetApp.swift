@@ -16,8 +16,14 @@ struct CountingSteps_WidgetApp: App {
     }
 
     var body: some Scene {
-        WindowGroup {
-            HealthOverviewView()
+            WindowGroup {
+                TabView {
+                    StepCounterView()
+                        .tabItem {
+                            Image(systemName: "figure.walk")
+                            Text("Steps")
+                        }
+                }
+            }
         }
-    }
 }
