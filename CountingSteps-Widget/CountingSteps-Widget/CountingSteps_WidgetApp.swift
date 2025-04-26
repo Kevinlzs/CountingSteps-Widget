@@ -16,8 +16,22 @@ struct CountingSteps_WidgetApp: App {
     }
 
     var body: some Scene {
-            WindowGroup {
-                LoginView()
+        WindowGroup {
+            TabView {
+                NavigationStack {
+                    LeaderboardView()
+                }
+                .tabItem {
+                    Label("Leaderboard", systemImage: "trophy.fill")
+                }
+
+                NavigationStack {
+                    HealthOverviewView()
+                }
+                .tabItem {
+                    Label("Health", systemImage: "heart.fill")
+                }
             }
         }
+    }
 }

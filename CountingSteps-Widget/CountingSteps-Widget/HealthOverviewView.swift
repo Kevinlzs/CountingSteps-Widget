@@ -12,6 +12,17 @@ struct HealthOverviewView: View {
     @State private var selectedRange = "Day"
     
     private let ranges = ["Day", "Week", "Month"]
+    
+    private var adjustedStepGoal: Int {
+        switch selectedRange {
+        case "Week":
+            return health.stepGoal * 7
+        case "Month":
+            return health.stepGoal * 30
+        default:
+            return health.stepGoal
+        }
+    }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -26,7 +37,7 @@ struct HealthOverviewView: View {
             Text("🚶 Steps (\(selectedRange))")
                 .font(.headline)
 
-            Text("\(Int(health.steps)) / \(health.stepGoal)")
+            Text("\(Int(health.steps)) / \(adjustedStepGoal)")
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundColor(health.steps >= Double(health.stepGoal) ? .green : .primary)
 
@@ -36,7 +47,7 @@ struct HealthOverviewView: View {
         .onAppear {
             health.requestAuthorization()
         }
-        .onChange(of: selectedRange) { newRange in
+        .onChange(of: selectedRange) { _, newRange in
             health.fetchAndUploadData(for: newRange)
         }
         .padding()
