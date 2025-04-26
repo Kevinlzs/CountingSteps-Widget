@@ -151,7 +151,7 @@ struct LoginView: View {
             SignUpView()
         }
         .fullScreenCover(isPresented: $isLoggedIn) {
-            HealthOverviewView()
+            LeaderboardView()
         }
     }
 }

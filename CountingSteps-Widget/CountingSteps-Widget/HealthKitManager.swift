@@ -44,21 +44,18 @@ class HealthKitManager: ObservableObject {
         let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateKey = dateFormatter.string(from: Date()) // "2025-04-15"
+        let dateKey = dateFormatter.string(from: Date()) // e.g., "2025-04-15"
         let documentId = "\(userId)_\(dateKey)"
-
-        let displayDateFormatter = DateFormatter()
-        displayDateFormatter.dateFormat = "M/dd/yy"
 
         let data: [String: Any] = [
             "uid": userId,
-            "date": displayDateFormatter.string(from: Date()), // "4/15/25"
+            "date": dateKey,
             "stepCount": Int(steps),
             "distance": distance,
             "caloriesBurnt": calories,
             "lastUpdated": Timestamp(date: Date())
         ]
-
+        
         db.collection("stepRecords")
             .document(documentId)
             .setData(data) { error in
@@ -85,7 +82,7 @@ class HealthKitManager: ObservableObject {
         }
     }
 
-    func fetchHealthData(from startDate: Date, to endDate: Date) {
+    func fetchHealthData(from startDate: Date, to endDate: Date, upload: Bool = true) {
         let group = DispatchGroup()
 
         group.enter()
@@ -107,7 +104,9 @@ class HealthKitManager: ObservableObject {
         }
 
         group.notify(queue: .main) {
-            self.uploadHealthData(for: startDate)
+            if upload {
+                self.uploadHealthData(for: startDate)
+            }
         }
     }
     
@@ -117,17 +116,15 @@ class HealthKitManager: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateKey = dateFormatter.string(from: date)
 
-        let displayDateFormatter = DateFormatter()
-        displayDateFormatter.dateFormat = "M/dd/yy"
-
         let data: [String: Any] = [
             "uid": userId,
-            "date": displayDateFormatter.string(from: date),
+            "date": dateKey, 
             "stepCount": Int(steps),
             "distance": distance,
             "caloriesBurnt": calories,
             "lastUpdated": Timestamp(date: Date())
         ]
+
 
         db.collection("stepRecords")
             .document("\(userId)_\(dateKey)")
@@ -165,7 +162,8 @@ class HealthKitManager: ObservableObject {
     
     func fetchAndUploadData(for range: String) {
         let (start, end) = getDateRange(for: range)
-        fetchHealthData(from: start, to: end)
+        let shouldUpload = (range == "Day")
+        fetchHealthData(from: start, to: end, upload: shouldUpload)
     }
 
     private func fetchQuantity(_ id: HKQuantityTypeIdentifier, from: Date, to: Date, completion: @escaping (Double) -> Void) {
