@@ -7,9 +7,12 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
+    @State private var name = ""
+    @State private var username = ""
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
@@ -52,6 +55,43 @@ struct SignUpView: View {
                     
                     VStack(spacing: 25) {
                         VStack(spacing: 20) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Name")
+                                    .font(.subheadline)
+                                    .foregroundColor(.white.opacity(0.7))
+                                
+                                HStack {
+                                    Image(systemName: "person")
+                                        .foregroundColor(.white.opacity(0.5))
+                                    TextField("", text: $name)
+                                        .foregroundColor(.white)
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.white.opacity(0.1))
+                                )
+                            }
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Username")
+                                    .font(.subheadline)
+                                    .foregroundColor(.white.opacity(0.7))
+                                
+                                HStack {
+                                    Image(systemName: "at")
+                                        .foregroundColor(.white.opacity(0.5))
+                                    TextField("", text: $username)
+                                        .foregroundColor(.white)
+                                        .autocapitalization(.none)
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.white.opacity(0.1))
+                                )
+                            }
+
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Email")
                                     .font(.subheadline)
@@ -123,12 +163,24 @@ struct SignUpView: View {
                             }
                             
                             isLoading = true
-                            Auth.auth().createUser(withEmail: email, password: password) { _, err in
+                            Auth.auth().createUser(withEmail: email, password: password) { result, err in
                                 isLoading = false
                                 if let err = err {
                                     error = err.localizedDescription
-                                } else {
-                                    dismiss()
+                                } else if let user = result?.user {
+                                    let db = Firestore.firestore()
+                                    db.collection("users").document(user.uid).setData([
+                                        "email": email,
+                                        "name": name,
+                                        "username": username,
+                                        "stepGoal": 20000 // default value
+                                    ]) { error in
+                                        if let error = error {
+                                            self.error = "Failed to save user data: \(error.localizedDescription)"
+                                        } else {
+                                            dismiss()
+                                        }
+                                    }
                                 }
                             }
                         } label: {
