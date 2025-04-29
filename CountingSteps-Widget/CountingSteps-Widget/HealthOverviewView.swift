@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftUI
+import FirebaseAuth
 
 struct HealthOverviewView: View {
     @StateObject var health = HealthKitManager()
     @State private var selectedRange = "Day"
+    @State private var isLoggedOut = false
     
     private let ranges = ["Day", "Week", "Month"]
     
@@ -43,12 +46,36 @@ struct HealthOverviewView: View {
 
             Text("Distance: \(String(format: "%.2f", health.distance)) mi")
             Text("Calories: \(String(format: "%.0f", health.calories)) kcal")
+            
+            Spacer()
+            
+            Button(action: {
+                do {
+                    try Auth.auth().signOut()
+                    isLoggedOut = true
+                } catch {
+                    print("Error signing out: \(error.localizedDescription)")
+                }
+            }) {
+                Text("Log Out")
+                    .foregroundColor(.red)
+                    .fontWeight(.bold)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(radius: 5)
+            }
+            .padding(.horizontal)
         }
         .onAppear {
             health.requestAuthorization()
         }
         .onChange(of: selectedRange) { _, newRange in
             health.fetchAndUploadData(for: newRange)
+        }
+        .fullScreenCover(isPresented: $isLoggedOut) {
+            LoginView()
         }
         .padding()
     }
@@ -57,4 +84,3 @@ struct HealthOverviewView: View {
 #Preview {
     HealthOverviewView()
 }
-

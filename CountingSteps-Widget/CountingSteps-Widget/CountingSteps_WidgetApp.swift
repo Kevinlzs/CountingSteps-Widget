@@ -31,6 +31,12 @@ struct CountingSteps_WidgetApp: App {
                 .tabItem {
                     Label("Health", systemImage: "heart.fill")
                 }
+                NavigationStack {
+                    ChatView()
+                }
+                .tabItem {
+                    Label("Chat", systemImage: "message.fill")
+                }
             }
         }
     }
