@@ -27,47 +27,168 @@ struct HealthOverviewView: View {
         }
     }
 
-    var body: some View {
-        VStack(spacing: 16) {
-            Picker("Select Range", selection: $selectedRange) {
-                ForEach(ranges, id: \.self) { range in
-                    Text(range)
+    private var progressPercentage: Double {
+        min(Double(health.steps) / Double(adjustedStepGoal), 1.0)
+    }
+
+        var body: some View {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.2196078449, blue: 0.2196078449, alpha: 1))]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 20) {
+                    VStack(spacing: 10) {
+                        Text("Health Overview")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 30)
+                    
+                    Picker("Select Range", selection: $selectedRange) {
+                        ForEach(ranges, id: \.self) { range in
+                            Text(range)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+                    .padding(.bottom, 30)
+                    
+                    VStack(spacing: 20) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white.opacity(0.1))
+                                .shadow(radius: 5)
+                            
+                            VStack(spacing: 15) {
+                                HStack {
+                                    Image(systemName: "figure.walk.circle.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("Steps")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    
+                                    Spacer()
+                                    
+                                    Text(selectedRange)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white.opacity(0.7))
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 5)
+                                        .background(Color.white.opacity(0.1))
+                                        .cornerRadius(10)
+                                }
+                                
+                                Text("\(Int(health.steps))")
+                                    .font(.system(size: 48, weight: .bold, design: .rounded))
+                                    .foregroundColor(health.steps >= Double(adjustedStepGoal) ? .green : .white)
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white.opacity(0.2))
+                                        .frame(height: 20)
+                                    
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(health.steps >= Double(adjustedStepGoal) ? Color.green : Color.blue)
+                                        .frame(width: max(CGFloat(progressPercentage) * (UIScreen.main.bounds.width - 80), 0), height: 20)
+                                }
+                                
+                                Text("\(Int(health.steps)) / \(adjustedStepGoal)")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            }
+                            .padding(20)
+                        }
+                        .frame(height: 200)
+                        .padding(.horizontal)
+                        .padding(.bottom, 30)
+                        
+                        HStack(spacing: 15) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.white.opacity(0.1))
+                                    .shadow(radius: 5)
+                                
+                                VStack(spacing: 10) {
+                                    Image(systemName: "figure.walk.motion")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("Distance")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    Text(String(format: "%.2f", health.distance))
+                                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("miles")
+                                        .font(.subheadline)
+                                        .foregroundColor(.white.opacity(0.7))
+                                }
+                                .padding()
+                            }
+                            
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.white.opacity(0.1))
+                                    .shadow(radius: 5)
+                                
+                                VStack(spacing: 10) {
+                                    Image(systemName: "flame.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("Calories")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    Text(String(format: "%.0f", health.calories))
+                                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("kcal")
+                                        .font(.subheadline)
+                                        .foregroundColor(.white.opacity(0.7))
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(height: 180)
+                        .padding(.horizontal)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        do {
+                            try Auth.auth().signOut()
+                            isLoggedOut = true
+                        } catch {
+                            print("Error signing out: \(error.localizedDescription)")
+                        }
+                    }) {
+                        Text("Log Out")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red.opacity(0.8))
+                            .cornerRadius(12)
+                            .shadow(radius: 5)
+                    }
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 20)
                 }
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-
-            Text("🚶 Steps (\(selectedRange))")
-                .font(.headline)
-
-            Text("\(Int(health.steps)) / \(adjustedStepGoal)")
-                .font(.system(size: 48, weight: .bold, design: .rounded))
-                .foregroundColor(health.steps >= Double(health.stepGoal) ? .green : .primary)
-
-            Text("Distance: \(String(format: "%.2f", health.distance)) mi")
-            Text("Calories: \(String(format: "%.0f", health.calories)) kcal")
-            
-            Spacer()
-            
-            Button(action: {
-                do {
-                    try Auth.auth().signOut()
-                    isLoggedOut = true
-                } catch {
-                    print("Error signing out: \(error.localizedDescription)")
-                }
-            }) {
-                Text("Log Out")
-                    .foregroundColor(.red)
-                    .fontWeight(.bold)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .shadow(radius: 5)
-            }
-            .padding(.horizontal)
-        }
         .onAppear {
             health.requestAuthorization()
         }
@@ -84,3 +205,5 @@ struct HealthOverviewView: View {
 #Preview {
     HealthOverviewView()
 }
+
+
