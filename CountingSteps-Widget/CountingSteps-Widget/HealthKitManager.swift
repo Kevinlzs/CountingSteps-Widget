@@ -37,11 +37,11 @@ class HealthKitManager: ObservableObject {
     }
     
     func uploadDailyHealthData() {
-//        guard let userId = Auth.auth().currentUser?.uid else {
-//            print("User not logged in")
-//            return
-//        }
-        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+//        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateKey = dateFormatter.string(from: Date()) // e.g., "2025-04-15"
@@ -68,11 +68,11 @@ class HealthKitManager: ObservableObject {
     }
 
     func fetchStepGoal() {
-//        guard let userId = Auth.auth().currentUser?.uid else {
-//            print("User not logged in")
-//            return
-//        }
-        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+//        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
         db.collection("users").document(userId).getDocument { document, error in
             if let doc = document, doc.exists, let data = doc.data() {
                 self.stepGoal = data["stepGoal"] as? Int ?? 10000
@@ -111,7 +111,11 @@ class HealthKitManager: ObservableObject {
     }
     
     func uploadHealthData(for date: Date) {
-        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+//        let userId = "tNX6PyVBIPd6vF143q9Dk5Dfqk53";
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateKey = dateFormatter.string(from: date)

@@ -17,27 +17,7 @@ struct CountingSteps_WidgetApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                NavigationStack {
-                    LeaderboardView()
-                }
-                .tabItem {
-                    Label("Leaderboard", systemImage: "trophy.fill")
-                }
-
-                NavigationStack {
-                    HealthOverviewView()
-                }
-                .tabItem {
-                    Label("Health", systemImage: "heart.fill")
-                }
-                NavigationStack {
-                    ChatView()
-                }
-                .tabItem {
-                    Label("Chat", systemImage: "message.fill")
-                }
-            }
+            LoginView()
         }
     }
 }
