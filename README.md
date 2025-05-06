@@ -93,7 +93,7 @@ Visual Prototype
 Current Progress 
 
 
-<img src="[https://github.com/user-attachments/assets/903228bf-c34a-4f56-a323-96558d9ae2b5](https://github.com/user-attachments/assets/41594285-ece8-4c55-8e03-443718315411)" alt="Visual Prototype" width="400" height="600"/>
+https://github.com/user-attachments/assets/41594285-ece8-4c55-8e03-443718315411
 
 
 ## Schema 
