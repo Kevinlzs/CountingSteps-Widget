@@ -14,5 +14,6 @@ struct Message: Identifiable, Codable {
     @DocumentID var id: String?
     let text: String
     let senderID: String
+    let senderName: String
     let timestamp: Date
 }
