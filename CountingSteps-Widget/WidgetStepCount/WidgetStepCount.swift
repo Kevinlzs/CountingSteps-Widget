@@ -1,16 +1,16 @@
-//
-//  WidgetStepCount.swift
-//  WidgetStepCount
-//
-//  Created by alan eckhaus on 4/15/25.
-//
+////
+////  WidgetStepCount.swift
+////  WidgetStepCount
+////
+////  Created by alan eckhaus on 4/15/25.
+////
 
 import WidgetKit
 import SwiftUI
 import HealthKit
 
 class HealthStore {
-    let healthStore = HKHealthStore()
+    private let healthStore = HKHealthStore()
 
     func fetchStepCount(completion: @escaping (Double) -> Void) {
         guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
@@ -45,19 +45,18 @@ struct Provider: TimelineProvider {
     let stepGoal = 12_000
 
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), steps: 7832, goal: stepGoal)
+        SimpleEntry(date: Date(), steps: 0, goal: stepGoal)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), steps: 7832, goal: stepGoal)
-        completion(entry)
+        completion(SimpleEntry(date: Date(), steps: 0, goal: stepGoal))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         healthStore.fetchStepCount { steps in
             let currentDate = Date()
             let entry = SimpleEntry(date: currentDate, steps: Int(steps), goal: stepGoal)
-            let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
+            let nextUpdate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
         }
@@ -83,10 +82,7 @@ struct WidgetStepCountEntryView: View {
 
                 Circle()
                     .trim(from: 0, to: progress)
-                    .stroke(
-                        Color.white,
-                        style: StrokeStyle(lineWidth: 10, lineCap: .round)
-                    )
+                    .stroke(Color.white, style: StrokeStyle(lineWidth: 10, lineCap: .round))
                     .rotationEffect(.degrees(-90))
                     .animation(.easeOut(duration: 0.5), value: progress)
 
@@ -109,6 +105,7 @@ struct WidgetStepCountEntryView: View {
     }
 }
 
+
 struct WidgetStepCount: Widget {
     let kind: String = "WidgetStepCount"
 
@@ -123,13 +120,8 @@ struct WidgetStepCount: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Step Counter")
+        .description("Shows your step count progress.")
     }
 }
 
-#Preview(as: .systemSmall) {
-    WidgetStepCount()
-} timeline: {
-    SimpleEntry(date: .now, steps: 7832, goal: 12_000)
-}

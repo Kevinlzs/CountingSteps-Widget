@@ -12,16 +12,42 @@
 		C0BE74322DAF274C002B89DF /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74312DAF274C002B89DF /* FirebaseCore */; };
 		C0BE74342DAF274C002B89DF /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74332DAF274C002B89DF /* FirebaseDatabase */; };
 		C0BE74362DAF274C002B89DF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C0BE74352DAF274C002B89DF /* FirebaseFirestore */; };
+		D3F115C52DC97AA400DE58AA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F115C42DC97AA400DE58AA /* WidgetKit.framework */; };
+		D3F115C72DC97AA400DE58AA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F115C62DC97AA400DE58AA /* SwiftUI.framework */; };
+		D3F115D42DC97AA400DE58AA /* WidgetStepCountExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D3F115C22DC97AA400DE58AA /* WidgetStepCountExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D3F115D52DC97AA400DE58AA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D3F115D42DC97AA400DE58AA /* WidgetStepCountExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CountingSteps-Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D30FE36C2DCAB68E00840797 /* WidgetStepCountExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetStepCountExtension.entitlements; sourceTree = "<group>"; };
+		D3F115C22DC97AA400DE58AA /* WidgetStepCountExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetStepCountExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F115C42DC97AA400DE58AA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D3F115C62DC97AA400DE58AA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C0BE74042DAF038D002B89DF /* CountingSteps-Widget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "CountingSteps-Widget";
+			sourceTree = "<group>";
+		};
+		D3F115C82DC97AA400DE58AA /* WidgetStepCount */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WidgetStepCount;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -39,13 +65,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3F115BF2DC97AA400DE58AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F115C72DC97AA400DE58AA /* SwiftUI.framework in Frameworks */,
+				D3F115C52DC97AA400DE58AA /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		C0BE73F92DAF038D002B89DF = {
 			isa = PBXGroup;
 			children = (
+				D30FE36C2DCAB68E00840797 /* WidgetStepCountExtension.entitlements */,
 				C0BE74042DAF038D002B89DF /* CountingSteps-Widget */,
+				D3F115C82DC97AA400DE58AA /* WidgetStepCount */,
+				D3F115C32DC97AA400DE58AA /* Frameworks */,
 				C0BE74032DAF038D002B89DF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,8 +92,18 @@
 			isa = PBXGroup;
 			children = (
 				C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */,
+				D3F115C22DC97AA400DE58AA /* WidgetStepCountExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D3F115C32DC97AA400DE58AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3F115C42DC97AA400DE58AA /* WidgetKit.framework */,
+				D3F115C62DC97AA400DE58AA /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,6 +116,7 @@
 				C0BE73FE2DAF038D002B89DF /* Sources */,
 				C0BE73FF2DAF038D002B89DF /* Frameworks */,
 				C0BE74002DAF038D002B89DF /* Resources */,
+				D3F115D52DC97AA400DE58AA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -88,6 +137,27 @@
 			productReference = C0BE74022DAF038D002B89DF /* CountingSteps-Widget.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D3F115C12DC97AA400DE58AA /* WidgetStepCountExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3F115D92DC97AA400DE58AA /* Build configuration list for PBXNativeTarget "WidgetStepCountExtension" */;
+			buildPhases = (
+				D3F115BE2DC97AA400DE58AA /* Sources */,
+				D3F115BF2DC97AA400DE58AA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D3F115C82DC97AA400DE58AA /* WidgetStepCount */,
+			);
+			name = WidgetStepCountExtension;
+			packageProductDependencies = (
+			);
+			productName = WidgetStepCountExtension;
+			productReference = D3F115C22DC97AA400DE58AA /* WidgetStepCountExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -95,11 +165,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					C0BE74012DAF038D002B89DF = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					D3F115C12DC97AA400DE58AA = {
+						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
@@ -121,6 +194,7 @@
 			projectRoot = "";
 			targets = (
 				C0BE74012DAF038D002B89DF /* CountingSteps-Widget */,
+				D3F115C12DC97AA400DE58AA /* WidgetStepCountExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -137,6 +211,13 @@
 
 /* Begin PBXSourcesBuildPhase section */
 		C0BE73FE2DAF038D002B89DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3F115BE2DC97AA400DE58AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -181,6 +262,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = H97Q6FDLWY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -198,6 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -244,6 +327,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = H97Q6FDLWY;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -255,6 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -274,7 +359,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CountingSteps-Widget/Preview Content\"";
-				DEVELOPMENT_TEAM = H97Q6FDLWY;
+				DEVELOPMENT_TEAM = R53S7JGW85;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses your health data to show your daily steps, distance, and calories burned.";
@@ -283,12 +368,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -305,7 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CountingSteps-Widget/Preview Content\"";
-				DEVELOPMENT_TEAM = H97Q6FDLWY;
+				DEVELOPMENT_TEAM = R53S7JGW85;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app uses your health data to show your daily steps, distance, and calories burned.";
@@ -314,13 +400,72 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D3F115D62DC97AA400DE58AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetStepCountExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R53S7JGW85;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetStepCount/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "WidgetStepCount-widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget1234.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3F115D72DC97AA400DE58AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetStepCountExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R53S7JGW85;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetStepCount/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "WidgetStepCount-widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = KevinLopez.CountingStepsWidget1234.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -344,6 +489,15 @@
 			buildConfigurations = (
 				C0BE74112DAF0390002B89DF /* Debug */,
 				C0BE74122DAF0390002B89DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3F115D92DC97AA400DE58AA /* Build configuration list for PBXNativeTarget "WidgetStepCountExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F115D62DC97AA400DE58AA /* Debug */,
+				D3F115D72DC97AA400DE58AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

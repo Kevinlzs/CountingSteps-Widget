@@ -9,10 +9,11 @@ import AppIntents
 import SwiftUI
 import WidgetKit
 
+//@main
 struct WidgetStepCountControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
-            kind: "alaneckhaus.CountingSteps-Widget.WidgetStepCount",
+            kind: "WidgetStepCountControl",
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
@@ -24,7 +25,7 @@ struct WidgetStepCountControl: ControlWidget {
             }
         }
         .displayName("Timer")
-        .description("A an example control that runs a timer.")
+        .description("An example control that runs a timer.")
     }
 }
 
@@ -52,3 +53,4 @@ struct StartTimerIntent: SetValueIntent {
         return .result()
     }
 }
+

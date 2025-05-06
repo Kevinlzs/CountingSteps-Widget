@@ -31,7 +31,7 @@ struct HealthOverviewView: View {
     private var progressPercentage: Double {
         min(Double(health.steps) / Double(adjustedStepGoal), 1.0)
     }
-    
+
     private var progressColor: Color {
         if progressPercentage >= 1.0 {
             return .green
@@ -188,6 +188,7 @@ struct HealthOverviewView: View {
                     
                     Spacer()
                     
+
                     ZStack{
                         Circle()
                             .stroke(lineWidth: 18)
@@ -236,6 +237,7 @@ struct HealthOverviewView: View {
                     .padding(.bottom, 20)
                 }
             }
+
             .onAppear {
                 health.requestAuthorization()
             }
