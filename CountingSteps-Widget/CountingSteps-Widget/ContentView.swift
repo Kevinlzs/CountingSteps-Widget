@@ -25,6 +25,13 @@ struct ContentView: View {
                 }
                 
                 NavigationStack {
+                    GoalSettingView()
+                }
+                .tabItem {
+                    Label("Goals", systemImage: "target")
+                }
+                
+                NavigationStack {
                     ChatView()
                 }
                 .tabItem {

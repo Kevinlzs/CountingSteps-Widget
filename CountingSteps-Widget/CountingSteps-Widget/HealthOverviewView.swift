@@ -13,6 +13,7 @@ struct HealthOverviewView: View {
     @StateObject var health = HealthKitManager()
     @State private var selectedRange = "Day"
     @State private var isLoggedOut = false
+    @State private var showGoalSetting = false
     
     private let ranges = ["Day", "Week", "Month"]
     
@@ -30,22 +31,41 @@ struct HealthOverviewView: View {
     private var progressPercentage: Double {
         min(Double(health.steps) / Double(adjustedStepGoal), 1.0)
     }
+    
+    private var progressColor: Color {
+        if progressPercentage >= 1.0 {
+            return .green
+        } else if progressPercentage >= 0.7 {
+            return .yellow
+        } else if progressPercentage >= 0.4 {
+            return .orange
+        } else {
+            return .red
+        }
+    }
 
-        var body: some View {
-            ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.2196078449, blue: 0.2196078449, alpha: 1))]),
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing)
-                    .ignoresSafeArea()
-                
+    var body: some View {
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.2196078449, blue: 0.2196078449, alpha: 1))]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+            .ignoresSafeArea()
+            
+            ScrollView {
                 VStack(spacing: 20) {
-                    VStack(spacing: 10) {
-                        Text("Health Overview")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Health Overview")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Spacer()
+                        
                     }
                     .padding(.top, 30)
+                    .padding(.horizontal)
                     
                     Picker("Select Range", selection: $selectedRange) {
                         ForEach(ranges, id: \.self) { range in
@@ -168,6 +188,33 @@ struct HealthOverviewView: View {
                     
                     Spacer()
                     
+                    ZStack{
+                        Circle()
+                            .stroke(lineWidth: 18)
+                            .opacity(0.4)
+                            .foregroundColor(.white)
+                        
+                        Circle()
+                            .trim(from: 0.0, to: CGFloat(progressPercentage))
+                            .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round, lineJoin: .round))
+                            .foregroundColor(progressColor)
+                            .rotationEffect(Angle(degrees: 270.0))
+                            .animation(.easeInOut, value: progressPercentage)
+                        
+                        VStack(spacing: 5) {
+                            Text("\(Int(progressPercentage * 100))%")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            Text("of goal")
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                    }
+                    .frame(width: 150, height: 150)
+                    .padding(.bottom, 15)
+                    
                     Button(action: {
                         do {
                             try Auth.auth().signOut()
@@ -189,16 +236,23 @@ struct HealthOverviewView: View {
                     .padding(.bottom, 20)
                 }
             }
-        .onAppear {
-            health.requestAuthorization()
+            .onAppear {
+                health.requestAuthorization()
+            }
+            .onChange(of: selectedRange) { _, newRange in
+                health.fetchAndUploadData(for: newRange)
+            }
+            .fullScreenCover(isPresented: $isLoggedOut) {
+                LoginView()
+            }
+            .sheet(isPresented: $showGoalSetting) {
+                GoalSettingView()
+                    .onDisappear {
+                        health.fetchStepGoal()
+                    }
+            }
+            .padding()
         }
-        .onChange(of: selectedRange) { _, newRange in
-            health.fetchAndUploadData(for: newRange)
-        }
-        .fullScreenCover(isPresented: $isLoggedOut) {
-            LoginView()
-        }
-        .padding()
     }
 }
 
