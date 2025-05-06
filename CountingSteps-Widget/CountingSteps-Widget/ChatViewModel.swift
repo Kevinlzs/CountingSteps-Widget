@@ -34,15 +34,30 @@ class ChatViewModel: ObservableObject {
             print("No current user")
             return
         }
-        let message = Message(
-            text: text,
-            senderID: user.uid,
-            timestamp: Date()
-        )
-        do {
-            _ = try db.collection("messages").addDocument(from: message)
-        } catch {
-            print("Error sending message: \(error.localizedDescription)")
+
+        let uid = user.uid
+
+        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
+            if let error = error {
+                print("Failed to fetch username: \(error.localizedDescription)")
+                return
+            }
+
+            let username = snapshot?.data()?["username"] as? String ?? "Unknown"
+
+            let message = Message(
+                text: text,
+                senderID: uid,
+                senderName: username,
+                timestamp: Date()
+            )
+
+            do {
+                try Firestore.firestore().collection("messages").addDocument(from: message)
+            } catch {
+                print("Error sending message: \(error.localizedDescription)")
+            }
         }
     }
+
 }

@@ -47,12 +47,12 @@ The Counting Steps Widget is an app designed to help you track your steps throug
 * User can see how many calories they burned
 * Users are able to see their distance in mi or km
 * Users are able to see their daily goal progress
-- [ ] Goal Screen
+- [x] Goal Screen
 * User are able to set a goal for the day
-- [ ] Leader Board 
+- [x] Leader Board 
 * Users are able to see other peoples progress
 * Users are able to see how far apart they are from another user
-- [ ] Chat
+- [x] Chat
 * Users are able to sent messages to others
 
 ### 3. Navigation
@@ -60,21 +60,21 @@ The Counting Steps Widget is an app designed to help you track your steps throug
 **Tab Navigation** (Tab to Screen)
 
 
-- [ ] Home
-- [ ] Goals
-- [ ] Leader board
-- [ ] Chat 
+- [x] Home
+- [x] Goals
+- [x] Leader board
+- [x] Chat 
 ...
 
 **Flow Navigation** (Screen to Screen) ?
 
-- [ ] Home Widget Screen
+- [x] Home Widget Screen
   * Leads to Goal Screen, Leader board & Chat
-- [ ] Goal Screen
+- [x] Goal Screen
   * Leads to Home 
-- [ ] Leader Board
+- [x] Leader Board
   * Leads to Home
-- [ ] Chat
+- [x] Chat
   * Leads to Home
 
 
@@ -90,6 +90,10 @@ Visual Prototype
 
 <img src="https://github.com/user-attachments/assets/903228bf-c34a-4f56-a323-96558d9ae2b5" alt="Visual Prototype" width="400" height="600"/>
 
+Current Progress 
+
+
+https://github.com/user-attachments/assets/41594285-ece8-4c55-8e03-443718315411
 
 
 ## Schema 

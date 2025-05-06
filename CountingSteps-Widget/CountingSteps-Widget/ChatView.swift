@@ -18,11 +18,17 @@ struct ChatView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.messages) { message in
-                            Text(message.text)
-                                .padding()
-                                .background(Color.blue.opacity(0.2))
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity, alignment: message.senderID == Auth.auth().currentUser?.uid ? .trailing : .leading)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(message.senderName)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+
+                                Text(message.text)
+                                    .padding()
+                                    .background(Color.blue.opacity(0.2))
+                                    .cornerRadius(10)
+                                    .frame(maxWidth: .infinity, alignment: message.senderID == Auth.auth().currentUser?.uid ? .trailing : .leading)
+                            }
                         }
                     }
                     .padding()
